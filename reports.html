@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <style>
+            th {
+                background-color: black;
+                padding: 10px;
+            }
+        </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div id="container">
+        <!-- Add the top-right image here -->
+        <div class="top-right-image">
+            <img src="assets/imgs/design.png" alt="Design Image" width="200">
+        </div>
+        <div class="top-right-admin-profile">
+            <ion-icon class="me-1" name="person"></ion-icon><span class="text-light fw-bold">Admin</span>
+        </div>
+
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="">
+                        <span class="title fw-bold mt-3" style="font-size: 24px;">GestoCom</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashboard.html">
+                        <span class="title fw-bold">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="educational_materials.html">
+                        <span class="title fw-bold">Assessment</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="feedbacks.html">
+                        <span class="title fw-bold">Feedbacks</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="accountmanage.html">
+                        <span class="title fw-bold">Account Management</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h1 class="mt-3 mb-4">Feedbacks / Reports</h1>
+        <a href="feedbacks.html" class="btn btn-success me-3 fw-normal text-white text-decoration-none">Feedbacks</a>
+        <button class="btn btn-danger me-5 disabled"><a href="reports.html" class="fw-normal text-white text-decoration-none">Reports</a></button>
+
+        <div class="mt-3 p-4 bm-5 shadow">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="fw-semibold">Description</th>
+                        <th class="fw-semibold">Subject</th>
+                        <th class="fw-semibold">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="report-table-body">
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGaL4b1BEFuC_j4GLgmkO9qmJGjQFp23w",
+            authDomain: "capstone-102.firebaseapp.com",
+            projectId: "capstone-102",
+            storageBucket: "capstone-102.appspot.com",
+            messagingSenderId: "210094060867",
+            appId: "1:210094060867:web:4856129ff4008708ebebf6",
+            measurementId: "G-M3KYDWRN84"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Fetch data from Firestore
+        async function fetchReportData() {
+        const docRef = doc(db, "Profile", "Report", "oRjBFAci1vZlYWVTsLooyVRQrYb2", "oP4X8vMLXnsxyiOU1zPY");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const tableBody = document.getElementById("report-table-body");
+
+            // Insert the data into the table
+            const row = `
+            <tr>
+                <td class="fw-semibold">${data.description}</td>
+                <td class="fw-semibold">${data.subject}</td>
+                <td class="fw-semibold">${new Date(data.timestamp.seconds * 1000).toLocaleString()}</td>
+            </tr>
+            `;
+            tableBody.innerHTML += row;
+        } else {
+            console.log("No such document!");
+        }
+        }
+
+        // Call the function to fetch data
+        fetchReportData();
+    </script>
+</body>
+</html>

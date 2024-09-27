@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Materials and Questions Data</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div id="container">
+        <div class="top-right-image">
+            <img src="assets/imgs/design.png" alt="Design Image" width="200">
+        </div>
+        <div class="top-right-admin-profile">
+            <ion-icon class="me-1" name="person"></ion-icon><span class="text-light fw-bold">Admin</span>
+        </div>
+
+        <div class="navigation">
+            <ul>
+                <li><a href=""><span class="title fw-bold mt-3" style="font-size: 24px;">GestoCom</span></a></li>
+                <li><a href="dashboard.html"><span class="title fw-bold">Dashboard</span></a></li>
+                <li><a href="educational_materials.html"><span class="title fw-bold">Educational Materials</span></a></li>
+                <li><a href="quiz.html"><span class="title fw-bold">Quizzes</span></a></li>
+                <li><a href="feedbacks.html"><span class="title fw-bold">Feedbacks</span></a></li>
+                <li><a href="accountmanage.html"><span class="title fw-bold">Account Management</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h2 class="mt-5 mb-3 fw-semibold">Educational Materials</h2>
+        <button class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#createMaterialModal">+ Create New</button>
+
+        <!-- Beginner Modules Section -->
+        <div class="mt-3 p-4 bm-5 shadow">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="fw-semibold" scope="col">Category Title</th>
+                        <th class="fw-semibold" scope="col">Expertise Level</th>
+                        <th class="fw-semibold" scope="col">Video</th>
+                        <th class="fw-semibold" scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    <!-- Beginner modules data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Questions Data Section -->
+        <h2 class="mt-5 mb-3 fw-semibold">Questions Data</h2>
+        <button class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#createQuestionModal">+ Add Questions</button>
+        <div class="mt-3 p-4 bm-5 shadow">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="fw-semibold">Question ID</th>
+                        <th class="fw-semibold">Options</th>
+                        <th class="fw-semibold">Answer</th>
+                        <th class="fw-semibold">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="questions-table">
+                    <!-- Questions data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Create Material Modal -->
+    <div class="modal fade" id="createMaterialModal" tabindex="-1" aria-labelledby="createMaterialModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createMaterialModalLabel">Create New Educational Material</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createMaterialForm">
+                        <div class="mb-3">
+                            <label for="materialTitle" class="form-label">Category Title</label>
+                            <input type="text" class="form-control" id="materialTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expertise_level" class="form-label">Expertise Level</label>
+                            <input type="text" class="form-control" id="expertise_level" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="videoUrl" class="form-label">Video URL</label>
+                            <input type="url" class="form-control" id="videoUrl" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitMaterialForm()">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Question Modal -->
+    <div class="modal fade" id="createQuestionModal" tabindex="-1" aria-labelledby="createQuestionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createQuestionModalLabel">Add New Question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createQuestionForm">
+                        <div class="mb-3">
+                            <label for="questionOptionA" class="form-label">Option A</label>
+                            <input type="text" class="form-control" id="questionOptionA" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionOptionB" class="form-label">Option B</label>
+                            <input type="text" class="form-control" id="questionOptionB" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionOptionC" class="form-label">Option C</label>
+                            <input type="text" class="form-control" id="questionOptionC" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionOptionD" class="form-label">Option D</label>
+                            <input type="text" class="form-control" id="questionOptionD" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionAnswer" class="form-label">Correct Answer</label>
+                            <input type="text" class="form-control" id="questionAnswer" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitQuestionForm()">Add Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Material Modal -->
+<div class="modal fade" id="updateMaterialModal" tabindex="-1" aria-labelledby="updateMaterialModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateMaterialModalLabel">Update Educational Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateMaterialForm">
+                    <div class="mb-3">
+                        <label for="updateMaterialTitle" class="form-label">Category Title</label>
+                        <input type="text" class="form-control" id="updateMaterialTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateExpertiseLevel" class="form-label">Expertise Level</label>
+                        <input type="text" class="form-control" id="updateExpertiseLevel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateVideoUrl" class="form-label">Video URL</label>
+                        <input type="url" class="form-control" id="updateVideoUrl" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitUpdateMaterial()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Material Modal -->
+<div class="modal fade" id="deleteMaterialModal" tabindex="-1" aria-labelledby="deleteMaterialModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMaterialModalLabel">Delete Educational Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this educational material?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDeleteMaterial()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Question Modal -->
+<div class="modal fade" id="updateQuestionModal" tabindex="-1" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateQuestionModalLabel">Update Question</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateQuestionForm">
+                    <div class="mb-3">
+                        <label for="updateOptionA" class="form-label">Option A</label>
+                        <input type="text" class="form-control" id="updateOptionA" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateOptionB" class="form-label">Option B</label>
+                        <input type="text" class="form-control" id="updateOptionB" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateOptionC" class="form-label">Option C</label>
+                        <input type="text" class="form-control" id="updateOptionC" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateOptionD" class="form-label">Option D</label>
+                        <input type="text" class="form-control" id="updateOptionD" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateAnswer" class="form-label">Correct Answer</label>
+                        <input type="text" class="form-control" id="updateAnswer" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitUpdateQuestion()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Question Modal -->
+<div class="modal fade" id="deleteQuestionModal" tabindex="-1" aria-labelledby="deleteQuestionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteQuestionModalLabel">Delete Question</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this question?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDeleteQuestion()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Firebase and JavaScript logic -->
+    <script type="module">
+        // Import Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import {
+            getFirestore, doc, getDoc, collection, getDocs,
+            addDoc, updateDoc, deleteDoc
+        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGaL4b1BEFuC_j4GLgmkO9qmJGjQFp23w",
+            authDomain: "capstone-102.firebaseapp.com",
+            projectId: "capstone-102",
+            storageBucket: "capstone-102.appspot.com",
+            messagingSenderId: "210094060867",
+            appId: "1:210094060867:web:4856129ff4008708ebebf6",
+            measurementId: "G-M3KYDWRN84"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Create Educational Material
+        async function submitMaterialForm() {
+            const categoryTitle = document.getElementById('materialTitle').value;
+            const expertise_level = document.getElementById('expertise_level').value;
+            const videoUrl = document.getElementById('videoUrl').value;
+
+            if (categoryTitle && expertise_level && videoUrl) {
+                try {
+                    await addDoc(collection(db, "Categories/beginner/modules"), {
+                        title: categoryTitle,
+                        expertiseLevel: expertise_level,
+                        video_url: videoUrl
+                    });
+                    alert("Material added successfully!");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                }
+            }
+        }
+
+        // Create Question
+        async function submitQuestionForm() {
+            const optionA = document.getElementById('questionOptionA').value;
+            const optionB = document.getElementById('questionOptionB').value;
+            const optionC = document.getElementById('questionOptionC').value;
+            const optionD = document.getElementById('questionOptionD').value;
+            const answer = document.getElementById('questionAnswer').value;
+
+            if (optionA && optionB && optionC && optionD && answer) {
+                try {
+                    await addDoc(collection(db, "Questions/Beginner/Question"), {
+                        a: optionA,
+                        b: optionB,
+                        c: optionC,
+                        d: optionD,
+                        answer: answer
+                    });
+                    alert("Question added successfully!");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                }
+            }
+        }
+
+// Fetch educational materials (Beginner modules)
+async function fetchEducationalMaterials() {
+    try {
+        // Fetch category title
+        const categoryRef = doc(db, 'Categories/beginner');
+        const categoryDoc = await getDoc(categoryRef);
+        const categoryData = categoryDoc.data();
+        const categoryTitle = categoryData.title; // Assuming there's a title field in the beginner category
+
+        // Fetch modules
+        const modulesRef = collection(db, 'Categories/beginner/modules');
+        const moduleSnapshot = await getDocs(modulesRef);
+        const tableBody = document.getElementById('data-table');
+
+        tableBody.innerHTML = ""; // Clear existing data
+
+        moduleSnapshot.forEach((doc) => {
+            const data = doc.data();
+            const row = `
+                <tr>
+                    <td class="fw-semibold">${categoryTitle}</td> <!-- Using the fetched category title -->
+                    <td class="fw-semibold">${data.expertiseLevel}</td> <!-- Ensure you fetch expertiseLevel correctly -->
+                    <td class="fw-semibold text-decoration-none">
+                        <a href="${data.video_url}" target="_blank">Watch Video</a>
+                    </td>
+                    <td class="fw-semibold">
+                        <button class="btn btn-warning" onclick="openUpdateMaterialModal('${doc.id}', '${data.title}', '${data.expertiseLevel}', '${data.video_url}')">Update</button>
+                        <button class="btn btn-danger" onclick="deleteMaterial('${doc.id}')">Delete</button>
+                    </td>
+                </tr>`;
+            tableBody.innerHTML += row;
+        });
+    } catch (error) {
+        console.error("Error fetching educational materials: ", error);
+    }
+}
+        // Fetch questions data
+        async function fetchQuestionsData() {
+            try {
+                const questionRef = collection(db, 'Questions/Beginner/Question');
+                const questionSnapshot = await getDocs(questionRef);
+                const tableBody = document.getElementById('questions-table');
+
+                tableBody.innerHTML = ""; // Clear existing data
+
+                questionSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = `
+                        <tr>
+                            <td class="fw-semibold">${doc.id}</td>
+                            <td class="fw-semibold">A: ${data.a}, B: ${data.b}, C: ${data.c}, D: ${data.d}</td>
+                            <td class="fw-semibold">${data.answer}</td>
+                            <td class="fw-semibold">
+                                <button class="btn btn-warning" onclick="openUpdateQuestionModal('${doc.id}', '${data.a}', '${data.b}', '${data.c}', '${data.d}', '${data.answer}')">Update</button>
+                                <button class="btn btn-danger" onclick="deleteQuestion('${doc.id}')">Delete</button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error fetching questions: ", error);
+            }
+        }
+
+        // Open Update Educational Material Modal
+        function openUpdateMaterialModal(id, title, level, videoUrl) {
+            document.getElementById('materialTitle').value = title;
+            document.getElementById('expertise_level').value = level;
+            document.getElementById('videoUrl').value = videoUrl;
+            document.getElementById('createMaterialForm').onsubmit = () => updateMaterial(id);
+            $('#createMaterialModal').modal('show');
+        }
+
+        // Update Educational Material
+        async function updateMaterial(id) {
+            const categoryTitle = document.getElementById('materialTitle').value;
+            const expertise_level = document.getElementById('expertise_level').value;
+            const videoUrl = document.getElementById('videoUrl').value;
+
+            if (categoryTitle && expertise_level && videoUrl) {
+                try {
+                    const materialDocRef = doc(db, 'Categories/beginner/modules', id);
+                    await updateDoc(materialDocRef, {
+                        title: categoryTitle,
+                        level: expertise_level,
+                        video_url: videoUrl
+                    });
+                    alert("Material updated successfully!");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error updating document: ", error);
+                }
+            }
+        }
+
+        // Open Update Question Modal
+        function openUpdateQuestionModal(id, a, b, c, d, answer) {
+            document.getElementById('questionOptionA').value = a;
+            document.getElementById('questionOptionB').value = b;
+            document.getElementById('questionOptionC').value = c;
+            document.getElementById('questionOptionD').value = d;
+            document.getElementById('questionAnswer').value = answer;
+            document.getElementById('createQuestionForm').onsubmit = () => updateQuestion(id);
+            $('#createQuestionModal').modal('show');
+        }
+
+        // Update Question
+        async function updateQuestion(id) {
+            const optionA = document.getElementById('questionOptionA').value;
+            const optionB = document.getElementById('questionOptionB').value;
+            const optionC = document.getElementById('questionOptionC').value;
+            const optionD = document.getElementById('questionOptionD').value;
+            const answer = document.getElementById('questionAnswer').value;
+
+            if (optionA && optionB && optionC && optionD && answer) {
+                try {
+                    const questionDocRef = doc(db, 'Questions/Beginner/Question', id);
+                    await updateDoc(questionDocRef, {
+                        a: optionA,
+                        b: optionB,
+                        c: optionC,
+                        d: optionD,
+                        answer: answer
+                    });
+                    alert("Question updated successfully!");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error updating document: ", error);
+                }
+            }
+        }
+
+        // Delete Educational Material
+        async function deleteMaterial(id) {
+            const confirmation = confirm("Are you sure you want to delete this material?");
+            if (confirmation) {
+                try {
+                    await deleteDoc(doc(db, 'Categories/beginner/modules', id));
+                    alert("Material deleted successfully!");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error deleting document: ", error);
+                }
+            }
+        }
+
+        // Delete Question
+        async function deleteQuestion(id) {
+            const confirmation = confirm("Are you sure you want to delete this question?");
+            if (confirmation) {
+                try {
+                    await deleteDoc(doc(db, 'Questions/Beginner/Question', id));
+                    alert("Question deleted successfully!");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error deleting document: ", error);
+                }
+            }
+        }
+
+        // Call both fetch functions on page load
+        window.onload = function () {
+            fetchEducationalMaterials();
+            fetchQuestionsData();
+        };
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
